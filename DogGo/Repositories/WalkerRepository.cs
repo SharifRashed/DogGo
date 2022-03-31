@@ -32,7 +32,8 @@ namespace DogGo.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT Id, [Name], ImageUrl, NeighborhoodId
-                        FROM Walker
+                        FROM Walker w
+                        JOIN Neighborhood n on n.Id = w.NeighborhoodId
                     ";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -45,7 +46,8 @@ namespace DogGo.Repositories
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                 Name = reader.GetString(reader.GetOrdinal("Name")),
                                 ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl")),
-                                NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId"))
+                                NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
+                                NeighborhoodName = reader.GetString(reader.GetOrdinal("NeighborhoodName")),
                             };
 
                             walkers.Add(walker);
